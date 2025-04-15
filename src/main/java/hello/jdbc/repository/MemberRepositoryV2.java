@@ -80,7 +80,6 @@ public class MemberRepositoryV2 {
         ResultSet rs = null;
 
         try {
-            con = getConnection();
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
 

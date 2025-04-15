@@ -3,6 +3,7 @@ package hello.jdbc.service;
 import hello.jdbc.connection.ConnectionConst;
 import hello.jdbc.domain.Member;
 import hello.jdbc.repository.MemberRepositoryV2;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * 트랜잭션 - 커넥션 파라미터 전달 방식 동기화
  */
+
+@Slf4j
 class MemberServiceV2Test {
     private MemberRepositoryV2 memberRepository;
     private MemberServiceV2 memberService;
@@ -48,7 +51,9 @@ class MemberServiceV2Test {
         memberRepository.save(memberA);
         memberRepository.save(memberB);
         //when
+        log.info("START TX");
         memberService.accountTransfer(memberA.getMemberId(), memberB.getMemberId(), 2000);
+        log.info("END TX");
         //then
         Member findMemberA = memberRepository.findById(memberA.getMemberId());
         Member findMemberB = memberRepository.findById(memberB.getMemberId());
