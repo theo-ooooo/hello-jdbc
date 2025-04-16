@@ -24,6 +24,7 @@ public class UncheckedAppTest {
         try {
             controller.request();
         } catch (Exception e) {
+//            e.printStackTrace();
             log.info("ex", e);
         }
     }
